@@ -2,8 +2,8 @@
 
 from random import randint
 demande = input("Do you want to play? (yes/no): ") 
-if demande == "oui":
-  while demande == "oui" :
+if demande == "yes":
+  while demande == "yes" :
       score = 0
       tentatives = 0
       tentativesm = 10
@@ -32,7 +32,7 @@ if demande == "oui":
              score += 200 
              print("Nice! Your score is {} points!".format(score))    
            demande = input("Do you want to keep playing? (yes/no): ")
-           if demande == "oui":
+           if demande == "yes":
               print("Great, let's keep going!")
               tentatives = 0
               tentativesm = 10
@@ -48,7 +48,7 @@ if demande == "oui":
           print("The secret number was {}.".format(chiffre))
           print("Too bad, you lose some points. Your score is {}".format(score))
           demande = input("Do you want to keep playing? (yes/no): ")
-          if demande == "oui":
+          if demande == "yes":
             print("Great, let's keep going!")
             tentatives = 0
             tentativesm = 10
@@ -57,7 +57,7 @@ if demande == "oui":
           else :
             print("Goodbye!")
             break
-elif demande == "non" :
+elif demande == "no" :
     print("No problem! Goodbye.")
 
 
