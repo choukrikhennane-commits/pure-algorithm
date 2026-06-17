@@ -1,5 +1,65 @@
 # first mini project ( a mini game that im proud of haha ) : 
 
+from random import randint
+demande = input("Do you want to play? (yes/no): ") 
+if demande == "oui":
+  while demande == "oui" :
+      score = 0
+      tentatives = 0
+      tentativesm = 10
+      chiffre = randint(1, 1000)
+      choix = int(input("Choose a number between 1 and 1000: "))
+      while choix != chiffre:
+        tentatives += 1
+        if choix < chiffre :
+          print("It's MORE! You have used", tentatives, "/", tentativesm, "attempts.")
+          choix = int(input("Choose a number between 1 and 1000: "))
+        elif choix > chiffre :
+          print("It's LESS! You have used", tentatives, "/", tentativesm, "attempts.")
+          choix = int(input("Choose a number between 1 and 1000: "))
+        if choix == chiffre :
+           print("That's correct, well done!")
+           if tentatives == 1 :
+              score += 2500 
+              print("Since you found it on your first try, you get {} points!".format(score))
+           elif 1 < tentatives <= 4 :
+             score += 900
+             print("Good job! Your score is {} points!".format(score)) 
+           elif 4 < tentatives <= 7 :
+             score += 550
+             print("Not bad! Your score is {} points!".format(score)) 
+           elif 7 < tentatives <= 10 :
+             score += 200 
+             print("Nice! Your score is {} points!".format(score))    
+           demande = input("Do you want to keep playing? (yes/no): ")
+           if demande == "oui":
+              print("Great, let's keep going!")
+              tentatives = 0
+              tentativesm = 10
+              chiffre = randint(1, 1000)
+              choix = int(input("Choose a number between 1 and 1000: "))
+              continue
+           else :
+            print("Goodbye!")
+            break
+        if tentatives == tentativesm and choix != chiffre:
+          score -= 50
+          print("You lost :( Try again next time!")
+          print("The secret number was {}.".format(chiffre))
+          print("Too bad, you lose some points. Your score is {}".format(score))
+          demande = input("Do you want to keep playing? (yes/no): ")
+          if demande == "oui":
+            print("Great, let's keep going!")
+            tentatives = 0
+            tentativesm = 10
+            chiffre = randint(1, 1000)
+            choix = int(input("Choose a number between 1 and 1000: "))
+          else :
+            print("Goodbye!")
+            break
+elif demande == "non" :
+    print("No problem! Goodbye.")
+
 
 
 
