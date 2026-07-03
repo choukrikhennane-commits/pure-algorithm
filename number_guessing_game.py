@@ -1,4 +1,4 @@
-# first mini project ( a mini game that im proud of haha ) : 
+## first mini project ( a mini game that im proud of haha ) : 
 
 from random import randint
 demande = input("Do you want to play? (yes/no): ") 
