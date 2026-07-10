@@ -20,6 +20,31 @@ As low-level system programming was not yet covered in my first-year university 
     temp->next = NULL;
 
  }
+ int load(){
+    FILE *file=fopen("score.txt","r");
+    if(file == NULL){
+        return 0;
+    }
+    int record = 0;
+    fscanf(file , "%d", &record);
+    fclose(file);
+    return record;
+ }
+ void save(int *score,int *record){
+    FILE *file = fopen ("score.txt","w");
+    if(file==NULL){
+        printf("The file couldn't be created or opened !");
+    }
+    if( *score > *record){
+        fprintf(file , "%d", *score);
+        printf("New record congrats !! Your highest score has been saved succesfully.");
+    }
+    else{
+        fprintf(file , "%d", *record);
+        printf("Try to beat your best performance ;)");
+    }
+    fclose(file);
+ }
  struct Node *push( struct Node *head, int x , int y){
     struct Node *newbody=(struct Node *)malloc(sizeof(struct Node));
     newbody->x = x;
@@ -29,7 +54,7 @@ As low-level system programming was not yet covered in my first-year university 
     return head;
  }
  int checkover(struct Node *snake){
-    if(snake->x >=  20 || snake->x < 0 || snake->y >= 20  || snake->y < 0){
+    if(snake->x >=  21 || snake->x < 0 || snake->y >= 21  || snake->y < 0){
         return 1;
     }
     struct Node *temp = snake->next;
@@ -41,7 +66,7 @@ As low-level system programming was not yet covered in my first-year university 
     }
 
  }
- struct Node *move(struct Node *snake, char d, int *px, int *py){
+ struct Node *move(struct Node *snake, char d, int *px, int *py,int *score){
      int newx = snake->x;
      int newy = snake->y;
      if (d == 'z') newy--;
@@ -52,7 +77,7 @@ As low-level system programming was not yet covered in my first-year university 
     if(snake->x == *px && snake->y == *py){
         *px = rand() %20;
         *py = rand() %20;
-        printf("MIAM !");
+        *score += 10;
     }
     else {
         removee(snake);
@@ -63,6 +88,8 @@ As low-level system programming was not yet covered in my first-year university 
  int main(){
 
     struct Node *snake = NULL;
+    int record = load();
+    int score = 0;
     int px;
     int py;
     int gamer=0;
@@ -73,7 +100,7 @@ As low-level system programming was not yet covered in my first-year university 
     snake=push(snake,10,10);
     py = rand()%20;
     px = rand()%20;
-    system("cls");
+    printf("\033[2J\033[H");
     while(gamer == 0){
         printf("\033[H");
         for(int y = 0; y <= 20; y++){
@@ -107,6 +134,7 @@ As low-level system programming was not yet covered in my first-year university 
        }
        printf("\n");
     }
+        printf("the score is = %d   ||    the record is = %d\n", score,record);
         if(_kbhit()){
             char dir = _getch();
             if( dir == 'z' && d != 's') d = 'z';
@@ -114,13 +142,14 @@ As low-level system programming was not yet covered in my first-year university 
             else if( dir == 'q' && d != 'd') d = 'q';
             else if( dir == 'd' && d != 'q') d = 'd';
         }
-        snake = move(snake, d, &px , &py);
+        snake = move(snake, d, &px , &py, &score);
         if(checkover(snake)== 1){
           printf("\n GAME OVER! \n");
           gamer = 1;
         }
         usleep(200000);
     }
+    save(&score, &record);
     while (snake != NULL){
         struct Node *temp = snake;
         snake = snake->next;
